@@ -8,6 +8,7 @@ const api = {
 }
 
 const city = document.querySelector('.city')
+const coord = document.querySelector('.coord')
 const date = document.querySelector('.date');
 const container_img = document.querySelector('.container-img');
 const container_temp = document.querySelector('.container-temp');
@@ -17,6 +18,7 @@ const weather_t = document.querySelector('.weather');
 const search_input = document.querySelector('.form-control');
 const search_button = document.querySelector('.btn');
 const low_high = document.querySelector('.low-high');
+
 
 // permição de acesso a localização
 
@@ -74,6 +76,7 @@ function searchResults(city) {
                 throw new Error(`http error: status ${response.status}`)
             }
             return response.json();
+            console.log(response.json());
         })
         .catch(error => {
             alert(error.message)
@@ -88,6 +91,9 @@ function displayResults(weather) {
     console.log(weather)
 
     city.innerText = `${weather.name}, ${weather.sys.country}`;
+
+    coord.innerText = `Latitude: ${weather.coord.lat}, / Longitude: ${weather.coord.lon}`;
+
 
     let now = new Date();
     date.innerText = dateBuilder(now);
@@ -104,6 +110,7 @@ function displayResults(weather) {
 
     low_high.innerText = `${Math.round(weather.main.temp_min)}°c / ${Math.round(weather.main.temp_max)}°c`;
 }
+
 
 // função para retorno do caléndário
 function dateBuilder(d) {
